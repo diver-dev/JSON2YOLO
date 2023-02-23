@@ -379,12 +379,22 @@ def delete_dsstore(path='../datasets'):
     for f in files:
         f.unlink()
 
+import argparse
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-s", "--src", help = "Set annotation source")
+
+    # Read arguments from command line
+    args = parser.parse_args()
+     
+    if args.src:
+        print(f"Displaying src as: {args.src}")
+
     source = 'COCO'
 
     if source == 'COCO':
-        convert_coco_json('../datasets/coco/annotations',  # directory with *.json
+        convert_coco_json(args.src,  # directory with *.json
                           use_segments=True,
                           cls91to80=True)
 
